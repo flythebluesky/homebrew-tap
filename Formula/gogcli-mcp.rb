@@ -2,7 +2,7 @@ class GogcliMcp < Formula
   desc "MCP server for Google Workspace via gog CLI - connects to Claude Co-Work"
   homepage "https://github.com/flythebluesky/gogcli-mcp"
   url "https://github.com/flythebluesky/gogcli-mcp/archive/refs/tags/v1.0.0.tar.gz"
-  sha256 "0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5"
+  sha256 "71e1ffd1c92b5997e9f28ad453d6cad420808ceb35bcf823f1b251fd96891a87"
   license "MIT"
 
   depends_on "go" => :build
