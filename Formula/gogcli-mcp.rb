@@ -1,8 +1,8 @@
 class GogcliMcp < Formula
   desc "MCP server for Google Workspace via gog CLI - connects to Claude Co-Work"
   homepage "https://github.com/flythebluesky/gogcli-mcp"
-  url "https://github.com/flythebluesky/gogcli-mcp/archive/refs/tags/v1.1.0.tar.gz"
-  sha256 "8657cfba2a68739a5b4b7e10c6d724bbd0e6469bb89987eb115f8ef322b631ea"
+  url "https://github.com/flythebluesky/gogcli-mcp/archive/refs/tags/v1.2.0.tar.gz"
+  sha256 "8ee9e5ec7ed86479b82d9bba2e9e768c4ef28226b46a5bed4f314ea2333d3e36"
   license "MIT"
 
   depends_on "go" => :build
@@ -12,13 +12,24 @@ class GogcliMcp < Formula
     system "go", "build", *std_go_args(ldflags: "-s -w -X main.version=#{version}"), "./cmd/gogcli-mcp"
   end
 
+  service do
+    run [opt_bin/"gogcli-mcp"]
+    environment_variables PATH: std_service_path_env
+    keep_alive true
+    log_path var/"log/gogcli-mcp/stdout.log"
+    error_log_path var/"log/gogcli-mcp/stderr.log"
+  end
+
   def caveats
     <<~EOS
-      To get started, run:
+      Before starting the service, run the setup wizard:
         gogcli-mcp setup
 
-      This will check your gog accounts, generate OAuth credentials,
-      and set up the server to start automatically on login.
+      Then start with:
+        brew services start gogcli-mcp
+
+      Logs:
+        #{var}/log/gogcli-mcp/
     EOS
   end
 
